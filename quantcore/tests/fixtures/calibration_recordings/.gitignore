@@ -1,0 +1,4 @@
+# S12 P11.3 — recordings artifact is single-file overwrite, not
+# version-controlled. For a historical snapshot, copy latest.md
+# out of this directory before the next test run.
+*.md

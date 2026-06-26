@@ -1,0 +1,22 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.pytest_cache/
+.ruff_cache/
+.basedpyright/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+.ipynb_checkpoints/
+
+*.egg-info/
+
+# MLflow experiment-tracking artifacts (S28 — tmp_path only, never committed).
+mlruns/
+
+.DS_Store

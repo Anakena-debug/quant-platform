@@ -1,0 +1,6 @@
+# S14 P13.1 — alpha-branches recordings artifact is single-file
+# overwrite, not version-controlled. For a historical snapshot,
+# copy latest.md out of this directory before the next test run.
+# Mirrors the S12 calibration_recordings/ and S13
+# dtaci_recordings/ patterns.
+*.md

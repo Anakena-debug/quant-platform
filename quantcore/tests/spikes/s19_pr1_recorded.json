@@ -1,0 +1,56 @@
+{
+  "spec_a": {
+    "n_samples": 1000,
+    "n_features": 50,
+    "q": 0.05,
+    "sigma2_true": 1.0,
+    "sigma2_hat": 0.9999994533644259,
+    "abs_err": 5.466355741390316e-07,
+    "seed": 20260503
+  },
+  "spec_b": {
+    "n_samples": 1000,
+    "n_features": 50,
+    "spike_eigenvalues_added": [
+      4.0,
+      2.0,
+      1.0
+    ],
+    "spike_eigenvalues_total": [
+      5.0,
+      3.0,
+      2.0
+    ],
+    "err_sample_fro": 1.8000189484122715,
+    "err_denoised_fro": 1.3186532153873134,
+    "ratio": 0.7325774078936488,
+    "seed_sigma": 20260503,
+    "seed_returns": 20260504
+  },
+  "spec_c": {
+    "well_conditioned": {
+      "n_features": 10,
+      "n_samples": 1000,
+      "q": 0.01,
+      "seed": 20260503,
+      "delta_hat": 0.013651536374523245,
+      "cov_lw_trace": 11.486219303845981
+    },
+    "marginal": {
+      "n_features": 50,
+      "n_samples": 100,
+      "q": 0.5,
+      "seed": 20260504,
+      "delta_hat": 0.35894527942751575,
+      "cov_lw_trace": 53.61731824115942
+    },
+    "ill_conditioned": {
+      "n_features": 100,
+      "n_samples": 80,
+      "q": 1.25,
+      "seed": 20260505,
+      "delta_hat": 0.5826169133284405,
+      "cov_lw_trace": 108.17228960742287
+    }
+  }
+}

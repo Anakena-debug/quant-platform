@@ -1,0 +1,6 @@
+# S15 P14.3 part 2 — DtACI alpha-trajectory recordings artifact is
+# single-file overwrite, not version-controlled. For a historical
+# snapshot, copy latest.md out of this directory before the next
+# test run. Mirrors the S14 alpha_recordings/ and S13
+# dtaci_recordings/ patterns.
+*.md

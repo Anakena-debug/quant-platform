@@ -1,0 +1,21 @@
+# Data files — too large for git
+raw/**/*.parquet
+processed/**/*.parquet
+catalog/*.duckdb
+catalog/*.wal
+
+# CRSP licensed data — analysis-only, never commit/push (large + licensed)
+crsp*.txt
+crsp*.csv
+
+# Manifests are fine to track
+!raw/**/_manifest.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# OS
+.DS_Store

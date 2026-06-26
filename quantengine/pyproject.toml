@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quantengine"
+version = "0.1.0"
+description = "Execution layer for systematic trading strategies. Consumes signals from quantcore; emits orders to broker adapters."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Jules" }]
+license = { text = "Proprietary" }
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "pydantic>=2.5",
+    "structlog>=24.1",
+    "databento==0.78.0",
+]
+
+[project.optional-dependencies]
+streaming = ["quantcore"]
+ibkr = ["ib_async>=2.1.0,<3.0"]
+persistence = ["duckdb>=0.10", "sqlalchemy>=2.0"]
+calendars = ["exchange_calendars>=4.5"]
+dev = ["pytest>=8", "pytest-cov>=5", "hypothesis>=6.100", "ruff>=0.5", "mypy>=1.10"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = [
+    "ibkr_paper: opt-in IBKR paper-account smoke test (also requires IBKR_PAPER_SMOKE=1)",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
+
+[tool.basedpyright]
+# Source is under src/; declare so absolute imports (`from quantengine.X`) resolve.
+include = ["src", "tests"]
+extraPaths = ["src"]
+# Point at the project venv so installed deps (numpy, pandas, pytest, ...) are visible.
+venvPath = "."
+venv = ".venv"
+pythonVersion = "3.11"
+
+[tool.uv.sources]
+quantcore = { path = "../quantcore", editable = true }

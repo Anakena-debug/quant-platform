@@ -1,0 +1,102 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quantcore"
+version = "0.1.0"
+description = "AFML research library for quantitative finance. Implements information-driven bars, fractional differentiation, triple-barrier labels, meta-labeling, purged K-fold CV, sample weights, bet sizing, and portfolio allocation."
+readme = "CHANGELOG.md"
+requires-python = ">=3.11"
+authors = [{ name = "Jules" }]
+license = { text = "Proprietary" }
+dependencies = [
+    "numba>=0.65.0",
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "scikit-learn>=1.8.0",
+    "scipy>=1.13",
+    "statsmodels>=0.14.6",
+]
+
+[project.scripts]
+quant-catalog = "quantcore.cli:main"
+quant-screen = "quantcore.cli:screen_main"
+quant-factory = "quantcore.cli:factory_main"
+quant-provenance = "quantcore.cli:provenance_main"
+quant-mcp = "quantcore.mcp_server:main"
+
+[project.optional-dependencies]
+# Conformal prediction subsystem — scikit-learn promoted to
+# [project.dependencies] at the P1.3 deps-alignment commit (C0), since
+# sklearn is hard-imported across validation/, preprocessing/, and
+# uncertainty/conformal/ — not conformal-only. Retained as an empty
+# placeholder for future conformal-only extras.
+conformal = []
+# Agentic-native MCP server surface (quantcore.mcp_server / the quant-mcp console
+# script). Opt-in so the protocol SDK never burdens the core library deps.
+mcp = ["mcp>=1.0"]
+# Path-signature features (S18). `esig` is the public API surface this
+# repo imports; `roughpy` is a transitive backend dependency required by
+# esig 1.0.0. Code under `quantcore/src/quantcore/preprocessing/
+# path_signature.py` MUST NOT import roughpy directly — esig is the
+# stable abstraction boundary. Both versions are pinned tightly (R1
+# mitigation) so a silent transitive bump cannot land without an explicit
+# dep-bump commit.
+features-signatures = [
+    "esig==1.0.0",
+    "roughpy>=0.3.0,<0.4",
+]
+dev = [
+    "pytest>=8",
+    "pytest-cov>=5",
+    "hypothesis>=6.100",
+    "ruff==0.15.11",
+    "basedpyright==1.39.2",
+    "pre-commit>=3.7",
+    # s50 native-acceleration arc (Rust/PyO3). maturin is the build tool;
+    # quantcore-native is the compiled overlay, sourced from native/ below.
+    # Both live in the dev extra ONLY — `pip install quantcore` (no extras)
+    # stays pure-Python with zero Rust; the shim falls back when the native
+    # module is absent.
+    "maturin>=1.7,<2",
+    "quantcore-native",
+    "quantcore[conformal]",
+    "quantcore[features-signatures]",
+]
+
+# Native overlay built from the in-tree maturin crate. Declaring it here (not in
+# [project.dependencies]) is what makes `uv run --all-extras` build AND retain
+# the compiled module — a bare `maturin develop` install is removed by uv's
+# next env sync. Keeps quantcore's own build-backend as setuptools (unchanged).
+[tool.uv.sources]
+quantcore-native = { path = "native" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# Ship the PEP 561 marker and the lazy-surface type stub in the wheel so consumers
+# (and their type checkers / IDEs) see quantcore's real types, not Any.
+[tool.setuptools.package-data]
+quantcore = ["py.typed", "*.pyi"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = [
+    "lead_lag_optional: tests that exercise the lead-lag path augmentation, which the S18 FB1 spike demoted from the production default. The test still runs by default; the marker allows pytest -m 'not lead_lag_optional' filtering.",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.basedpyright]
+pythonVersion = "3.11"
+
+[dependency-groups]
+dev = [
+    "vulture>=2.16",
+]
+# Strict ratchet configured per-package in S1.2.
+# For now, no strict enforcement — S1.1a is packaging skeleton only.

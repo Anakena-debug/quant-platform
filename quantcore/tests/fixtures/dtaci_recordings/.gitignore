@@ -1,0 +1,5 @@
+# S13 P12.2 — DtACI recovery-rate recordings artifact is single-
+# file overwrite, not version-controlled. For a historical
+# snapshot, copy latest.md out of this directory before the next
+# test run. Same convention as P11.3's calibration_recordings/.
+*.md

@@ -1,0 +1,64 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# Test / tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.basedpyright/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Secrets / credentials — never commit
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+.netrc
+
+# Data artifacts (large / regenerable / licensed — never in git).
+# Blocked by EXTENSION, not directory name, so source packages such as
+# quantcore/src/quantcore/data/ are never swept up.
+*.parquet
+*.dbn
+*.duckdb
+*.duckdb.wal
+*.wal
+*.csv
+*.ndjson
+*.h5
+*.hdf5
+*.npy
+*.npz
+*.feather
+*.arrow
+*.pkl
+*.pickle
+mlruns/
+
+# Allowlist: small committed test fixtures (regenerable via build scripts)
+!**/tests/fixtures/*.parquet
+
+# Experiment tracking
+mlflow.db
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/

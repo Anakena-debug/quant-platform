@@ -1,0 +1,32 @@
+# Dow Jones 30 — Scraped via Apify 2026-04-11
+# Source: slickcharts.com/dowjones
+AAPL
+AMGN
+AMZN
+AXP
+BA
+CAT
+CRM
+CSCO
+CVX
+DIS
+GS
+HD
+HON
+IBM
+JNJ
+JPM
+KO
+MCD
+MMM
+MRK
+MSFT
+NKE
+NVDA
+PG
+SHW
+TRV
+UNH
+V
+VZ
+WMT

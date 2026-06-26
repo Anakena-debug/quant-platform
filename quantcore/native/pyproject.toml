@@ -1,0 +1,18 @@
+[build-system]
+requires = ["maturin>=1.7,<2"]
+build-backend = "maturin"
+
+[project]
+name = "quantcore-native"
+version = "0.1.0"
+description = "Native acceleration kernels for quantcore (Rust/PyO3)."
+requires-python = ">=3.11"
+classifiers = ["Private :: Do Not Upload"]
+
+[tool.maturin]
+# Mixed layout: the Rust extension is the submodule
+# quantcore_native._quantcore_native; the python/ package re-exports it and
+# carries the type stub + py.typed marker.
+python-source = "python"
+module-name = "quantcore_native._quantcore_native"
+features = ["pyo3/extension-module"]

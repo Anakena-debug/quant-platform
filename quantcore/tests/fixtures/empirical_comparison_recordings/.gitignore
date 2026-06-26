@@ -1,0 +1,6 @@
+# S16 P15.3 — empirical-comparison recordings artifacts are
+# single-file overwrite (one per (synthetic, cadence) cell), not
+# version-controlled. For a historical snapshot, copy *_latest.md
+# out of this directory before the next test run. Mirrors the S15
+# dtaci_alpha_recordings/ pattern.
+*.md

@@ -1,0 +1,19 @@
+[package]
+name = "quantcore-native"
+version = "0.1.0"
+edition = "2021"
+description = "Native (Rust/PyO3) acceleration kernels for quantcore — byte-parity (atol 1e-12) with the pure-Python reference."
+license = "Proprietary"
+publish = false
+
+[lib]
+name = "_quantcore_native"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.23", features = ["extension-module", "abi3-py311"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

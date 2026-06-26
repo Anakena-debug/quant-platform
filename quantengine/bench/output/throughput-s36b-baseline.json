@@ -1,0 +1,19 @@
+{
+  "n_samples": 300000,
+  "wall_time_s": 60.101294499996584,
+  "p50_us": 54.292,
+  "p95_us": 59.5,
+  "p99_us": 67.0,
+  "p999_us": 82.91712499999866,
+  "max_us": 757.083,
+  "sustained_qps": 4991.573018448331,
+  "queue_depth_p50": 0,
+  "queue_depth_p99": 0,
+  "queue_depth_max": 7,
+  "backpressure_drops_total": 0,
+  "gc_pause_count": 0,
+  "bridge_cost_us_p99": 164.21051000000006,
+  "bridge_cost_us_p50": 59.5,
+  "bridge_cost_us_max": 310.625,
+  "workload": "single_instrument_full_drain"
+}

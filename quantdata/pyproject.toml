@@ -1,0 +1,37 @@
+[project]
+name = "quantdata"
+version = "0.1.0"
+description = "Data layer: ingestion, catalog, corporate-action adjustment, survivorship-free PIT panels."
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.1",
+    "numpy>=1.26",
+    "pyarrow>=14.0",
+    "databento==0.78.0",
+    "duckdb>=0.10",
+    "polars>=1.0",
+    # s79: corp_actions + panel re-homed into quantlake; quantdata shims UP to it (layer inverts,
+    # no cycle — quantlake depends on nothing in quantdata).
+    "quantlake",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+# quantdata is a flat-module data layer (config.py/query.py/corp_actions.py at the root +
+# scripts/), NOT an installable package — uv provides the dependency env, pytest's pythonpath
+# makes the flat modules importable. This brings quantdata under `uv run` (replacing the old
+# bare-python3 Makefile convention) without repackaging the legacy scripts.
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+quantlake = { path = "../quantlake", editable = true }
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
